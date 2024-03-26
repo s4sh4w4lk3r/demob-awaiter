@@ -1,15 +1,36 @@
-"use client";
-import { ComebackType, getComeback } from "@/date";
-import { Text } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import { Box, HStack } from "@chakra-ui/react";
 
-export default function ProgressBar() {
-    useEffect(() => {
-        const timer = setInterval(() => setComeback(getComeback(new Date("2024-03-20"))), 1000);
-        return () => clearTimeout(timer);
-    }, []);
+export default function ProgressBar({ percentage }: { percentage: number }) {
+    const palki: JSX.Element[] = [];
 
-    const [comeback, setComeback] = useState<ComebackType | null>(null);
+    for (let i = 0; i < 99; i++) {
+        if (i < percentage - 1) {
+            palki.push(
+                <Box
+                    w={"1px"}
+                    h={"30px"}
+                    bgColor={"white"}
+                    key={i}
+                />
+            );
+        } else {
+            palki.push(
+                <Box
+                    w={"1px"}
+                    h={"30px"}
+                    bgColor={"gray"}
+                    key={i}
+                />
+            );
+        }
+    }
 
-    return <Text>{JSON.stringify(comeback)}</Text>;
+    return (
+        <HStack
+            gap={"4px"}
+            wrap={"wrap"}
+        >
+            {palki}
+        </HStack>
+    );
 }

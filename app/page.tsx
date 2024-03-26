@@ -1,9 +1,9 @@
-import ProgressBar from "@/components/ProgressBar";
+import MainPage from "@/components/MainPage";
 
 export default function Home() {
     return (
         <main>
-            <ProgressBar />
+            <MainPage />
         </main>
     );
 }
