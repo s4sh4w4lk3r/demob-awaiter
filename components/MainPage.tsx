@@ -1,23 +1,42 @@
 "use client";
 import { ComebackType, getComeback } from "@/date";
-import { Text } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import ProgressBar from "./ProgressBar";
+import DigitBlock from "./DigitBlock";
+import { HStack, Text } from "@chakra-ui/react";
+import useDateLocalStorage from "@/useDateLocalStorage";
 
 export default function MainPage() {
-    useEffect(() => {
-        // const timer = setInterval(() => setComeback(getComeback({ startDate: new Date("2023-03-27 12:00") })), 1000);
-        const timer = setInterval(() => setComeback(getComeback({ startDate: new Date("2023-06-26 12:00") })), 1000);
-        return () => clearTimeout(timer);
-    }, []);
+    const { date } = useDateLocalStorage();
+    const [comeback, setComeback] = useState<ComebackType>(initial);
 
-    const [comeback, setComeback] = useState<ComebackType | null>(null);
+    useEffect(() => {
+        const timer = setInterval(() => setComeback(getComeback({ startDate: date })), 1000);
+        return () => clearTimeout(timer);
+    }, [date]);
 
     return (
         <>
-            <Text>{JSON.stringify(comeback?.remained)}</Text>
-            <Text>{JSON.stringify(comeback?.elapsed)}</Text>
             <ProgressBar percentage={Math.floor(comeback?.percentage ?? 0)} />
+            <HStack>
+                <Text>Прошло:</Text>
+                <DigitBlock
+                    {...comeback.elapsed}
+                    digitColor="cyan.300"
+                />
+
+                <Text>Осталось:</Text>
+                <DigitBlock
+                    {...comeback.remained}
+                    digitColor="green.300"
+                />
+            </HStack>
         </>
     );
 }
+
+const initial: ComebackType = {
+    elapsed: { days: 0, hours: 0, minutes: 0, seconds: 0 },
+    remained: { days: 0, hours: 0, minutes: 0, seconds: 0 },
+    percentage: 0,
+};
