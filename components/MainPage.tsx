@@ -3,13 +3,15 @@ import { getComeback } from "@/date";
 import React, { useEffect, useState } from "react";
 import ProgressBar from "./ProgressBar";
 import DigitBlock from "./DigitBlock";
-import { HStack, Text } from "@chakra-ui/react";
-import useDateLocalStorage from "@/useDateLocalStorage";
+import { HStack, VStack } from "@chakra-ui/react";
+import useDateLocalStorage, { isStorageDateEmpty } from "@/useDateLocalStorage";
+import { useRouter } from "next/navigation";
 
 type ComebackType = ReturnType<typeof getComeback>;
 export default function MainPage() {
     const { date } = useDateLocalStorage();
     const [comeback, setComeback] = useState<ComebackType>(initial);
+    const router = useRouter();
 
     useEffect(() => {
         setComeback(getComeback({ startDate: date }));
@@ -17,23 +19,30 @@ export default function MainPage() {
         return () => clearTimeout(timer);
     }, [date]);
 
+    useEffect(() => {
+        if (isStorageDateEmpty()) router.push("/options");
+    });
+
     return (
-        <>
+        <VStack gap={4}>
             <ProgressBar percentage={Math.floor(comeback?.percentage ?? 0)} />
-            <HStack>
-                <Text>Прошло:</Text>
+            <HStack
+                justifyContent={"center"}
+                gap={4}
+            >
                 <DigitBlock
-                    {...comeback.elapsed}
+                    time={{ ...comeback.elapsed }}
                     digitColor="cyan.300"
+                    title="Прошло"
                 />
 
-                <Text>Осталось:</Text>
                 <DigitBlock
-                    {...comeback.remained}
+                    time={{ ...comeback.remained }}
                     digitColor="green.300"
+                    title="Осталось"
                 />
             </HStack>
-        </>
+        </VStack>
     );
 }
 

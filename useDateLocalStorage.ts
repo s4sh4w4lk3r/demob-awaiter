@@ -26,3 +26,11 @@ function saveToLocalStorage(date: Date) {
         localStorage.setItem("date", date.toISOString());
     } catch {}
 }
+
+export function isStorageDateEmpty() {
+    try {
+        const value = localStorage.getItem("date");
+        if (value && value !== "") return false;
+    } catch {}
+    return true;
+}
