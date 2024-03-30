@@ -37,7 +37,7 @@ export function getComeback({ startDate }: { startDate: Date }): ComebackType {
     };
 }
 
-export type ComebackType = {
+type ComebackType = {
     elapsed: { days: number; hours: number; minutes: number; seconds: number };
     remained: { days: number; hours: number; minutes: number; seconds: number };
     percentage: number;
