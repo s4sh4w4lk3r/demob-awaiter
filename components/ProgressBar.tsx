@@ -1,6 +1,6 @@
 import { Progress } from "@chakra-ui/react";
 
-export default function ProgressBar({ percentage }: { percentage: number }) {
+export default function ProgressBar({ percentage, w = "full" }: { percentage: number; w?: string }) {
     return (
         <Progress
             value={percentage}
@@ -8,7 +8,7 @@ export default function ProgressBar({ percentage }: { percentage: number }) {
             isAnimated
             hasStripe
             colorScheme="pink"
-            w={"full"}
+            w={w}
         />
     );
 }
