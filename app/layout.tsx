@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import Providers from "@/Providers";
 import Image from "next/image";
@@ -11,6 +11,12 @@ export const metadata: Metadata = {
     description: "Таймер до демобилизации для моей любимой",
 };
 
+export const viewport: Viewport = {
+    themeColor: {
+        color: "#EC7063",
+    },
+};
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -18,7 +24,10 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ru">
-            <body className={inter.className}>
+            <body
+                className={inter.className}
+                style={{ height: "100vh" }}
+            >
                 {
                     <Providers>
                         <Image
@@ -32,7 +41,6 @@ export default function RootLayout({
                                 zIndex: -1,
                                 opacity: 0.6,
                             }}
-                            priority={false}
                         ></Image>
                         {children}
                     </Providers>
