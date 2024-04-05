@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Providers from "@/Providers";
 import Image from "next/image";
 import bg from "@/public/background.jpg";
+import { Center, VStack } from "@chakra-ui/react";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -42,7 +43,19 @@ export default function RootLayout({
                                 opacity: 0.6,
                             }}
                         ></Image>
-                        {children}
+
+                        <Center
+                            as={"main"}
+                            h={"100vh"}
+                        >
+                            <VStack
+                                justifyContent={"center"}
+                                gap={4}
+                                w={"500px"}
+                            >
+                                {children}
+                            </VStack>
+                        </Center>
                     </Providers>
                 }
             </body>

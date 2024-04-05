@@ -7,12 +7,10 @@ export default function Providers({ children }: { children: ReactNode }) {
     return (
         <ChakraProvider>
             <>
-                {env.NODE_ENV === "production" ?? (
-                    <ColorModeScript
-                        initialColorMode={"dark"}
-                        key={"color-script"}
-                    />
-                )}
+                <ColorModeScript
+                    initialColorMode={"dark"}
+                    key={"color-script"}
+                />
 
                 {children}
             </>
