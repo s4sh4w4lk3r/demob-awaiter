@@ -25,6 +25,27 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="ru">
+            <head>
+                <link
+                    rel="icon"
+                    href="/favicon.ico"
+                    sizes="any"
+                />
+
+                <link
+                    rel="icon"
+                    href="/icon.svg"
+                    type="image/png"
+                    sizes="256x256"
+                />
+
+                <link
+                    rel="apple-touch-icon"
+                    href="/apple-icon.png"
+                    type="image/png"
+                    sizes="256x256"
+                />
+            </head>
             <body
                 className={inter.className}
                 style={{ height: "100vh" }}
